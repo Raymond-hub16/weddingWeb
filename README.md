@@ -1,4 +1,4 @@
-# Wedding Landing Page - Daeng Sherly Menikah
+# Wedding Landing Page - 
 
 ![Thumbnail](/image/thumbnail-web-sherly-daeng-menikah.png)
 
@@ -29,5 +29,5 @@
 
 
 # Credits
-
+Original : Daeng Sherly Menikah
 - Floral vector created by BiZkettE1 - www.freepik.com (https://www.freepik.com/free-photos-vectors/background)
