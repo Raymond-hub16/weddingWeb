@@ -254,8 +254,8 @@
           <br />
           1 Tawarikh 17 : 27
           <br />
-          Dengan sukacita yang mendalam, Untuk itu kami mengundang
-          Bapak/Ibu/Saudara/Saudari untuk hadir dalam acara pernikahan kami:
+          Dengan sukacita yang mendalam, kami mengundang
+          <span id="paragraphGreeting"> </span> untuk hadir dalam acara pernikahan kami:
         </p>
 
         <span class="space40px"></span>
@@ -843,20 +843,36 @@
       });
     </script>
     <script>
-      function toggleAudio() {
-        const audioPlayer = document.getElementById("audioPlayer");
-        const backgroundAudio = document.getElementById("backgroundAudio");
-        if (
-          audioPlayer.style.display === "none" ||
-          audioPlayer.style.display === ""
-        ) {
-          audioPlayer.style.display = "block";
-          backgroundAudio.play();
-        } else {
-          audioPlayer.style.display = "none";
-          backgroundAudio.pause();
+     // Your JavaScript code here
+        function toggleAudio() {
+            const audioPlayer = document.getElementById("audioPlayer");
+            const backgroundAudio = document.getElementById("backgroundAudio");
+
+            if (
+                audioPlayer.style.display === "none" ||
+                audioPlayer.style.display === ""
+            ) {
+                audioPlayer.style.display = "block";
+                backgroundAudio.play();
+            } else {
+                audioPlayer.style.display = "none";
+                backgroundAudio.pause();
+            }
         }
-      }
+
+        function handleScrollAudioPlayback() {
+            const audioPlayer = document.getElementById("audioPlayer");
+            const backgroundAudio = document.getElementById("backgroundAudio");
+
+            if (backgroundAudio.paused && (audioPlayer.style.display === "none" || audioPlayer.style.display === "")) {
+                audioPlayer.style.display = "block";
+                backgroundAudio.play();
+                // Remove the event listener after the first play
+                window.removeEventListener("scroll", handleScrollAudioPlayback);
+            }
+        }
+
+        window.addEventListener("scroll", handleScrollAudioPlayback);
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
