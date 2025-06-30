@@ -255,7 +255,7 @@
           1 Tawarikh 17 : 27
           <br />
           Dengan sukacita yang mendalam, kami mengundang
-          <span id="paragraphGreeting"> </span> untuk hadir dalam acara pernikahan kami:
+          <span id="paragraphGreetings"> </span> untuk hadir dalam acara pernikahan kami:
         </p>
 
         <span class="space40px"></span>
@@ -904,6 +904,20 @@
             displayText
           );
         }
+
+          // Mengisi teks untuk paragraf (misalnya di <span id="paragraphGreeting">)
+        const paragraphGreetingsElement =
+          document.getElementById("paragraphGreetings");
+        if (paragraphGreetingsElement) {
+          paragraphGreetingsElement.textContent = displayText;
+        } else {
+          console.warn(
+            "Element with ID 'paragraphGreetings' not found. Displaying in console:",
+            displayText
+          );
+        }
+
+        
       });
     </script>
   </body>
