@@ -255,7 +255,8 @@
           1 Tawarikh 17 : 27
           <br />
           Dengan sukacita yang mendalam, kami mengundang
-          <span id="paragraphGreetings"> </span> untuk hadir dalam acara pernikahan kami:
+          <span id="paragraphGreetings"> </span> untuk hadir dalam acara
+          pernikahan kami:
         </p>
 
         <span class="space40px"></span>
@@ -271,7 +272,9 @@
 
         <div class="ampersand">&amp;</div>
 
-        <div class="nama-lengkap">Teresia Dilah Karinah br. Sitinjak, S.I.KOM</div>
+        <div class="nama-lengkap">
+          Teresia Dilah Karinah br. Sitinjak, S.I.KOM
+        </div>
         <p class="nama-lengkap-keluarga">
           Putri dari Kel. Acep Surjadi
           <br />
@@ -387,7 +390,7 @@
             data-aos-easing="linear"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.639656983714!2d106.61035687458961!3d-6.219888360918348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ff5c6d0847f7%3A0x21890a9db139486b!2sUFIT%20HALL%20GK!5e1!3m2!1sid!2sid!4v1751205255498!5m2!1sid!2sid""
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.639656983714!2d106.61035687458961!3d-6.219888360918348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ff5c6d0847f7%3A0x21890a9db139486b!2sUFIT%20HALL%20GK!5e1!3m2!1sid!2sid!4v1751205255498!5m2!1sid!2sid"
               width="100%"
               height="450"
               frameborder="0"
@@ -472,7 +475,7 @@
             data-aos="fade-up"
             data-aos-easing="linear"
           >
-            <h1 class="title has-text-centered section-title">Galeri </h1>
+            <h1 class="title has-text-centered section-title">Galeri</h1>
             <div class="gallery">
               <a
                 href="image/IMG-20250628-WA0008.jpg"
@@ -652,9 +655,7 @@
                 </div>
                 <br />
                 <div class="field">
-                  <label class="label" style="text-align: left"
-                    >Pesan :</label
-                  >
+                  <label class="label" style="text-align: left">Pesan :</label>
                   <textarea
                     class="textarea"
                     placeholder="berikan pesan anda"
@@ -664,6 +665,9 @@
 
                 <button class="button is-white" value="submit">Kirim</button>
               </form>
+              <div id="loadingOverlay" class="loading-overlay">
+                <div class="spinner"></div>
+              </div>
 
               <div class="space40px"></div>
               <div class="space40px"></div>
@@ -829,50 +833,105 @@
     <script>
       window.addEventListener("load", function () {
         const form = document.getElementById("my-form");
+
+        const loadingOverlay = document.getElementById("loadingOverlay"); // Get it once outside the submit handler
+
         form.addEventListener("submit", function (e) {
           e.preventDefault();
+
+          // Show the loading overlay immediately
+
+          loadingOverlay.classList.add("visible");
+
           const data = new FormData(form);
+
           const action = e.target.action;
+
           fetch(action, {
             method: "POST",
+
             body: data,
-          }).then(() => {
-            alert("Konfirmasi kehadiran berhasil terkirim!");
-          });
+          })
+            .then((response) => {
+              // Check if the response was successful (status code 200-299)
+
+              if (!response.ok) {
+                // If not successful, throw an error to be caught by .catch()
+
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              return response.text(); // Or .json() if your server returns JSON
+            })
+
+            .then(() => {
+              // This block runs if the fetch was successful
+
+              alert("Konfirmasi kehadiran berhasil terkirim!");
+
+              // Optionally, clear the form or redirect the user here
+
+              form.reset(); // Clears the form fields
+            })
+
+            .catch((error) => {
+              // This block runs if there was a network error or a thrown error from .then()
+
+              console.error(
+                "There was a problem with your fetch operation:",
+                error
+              );
+
+              alert(
+                "Terjadi kesalahan saat mengirim konfirmasi. Silakan coba lagi."
+              );
+            })
+
+            .finally(() => {
+              // This block always runs, whether successful or failed
+
+              // Hide the loading overlay
+
+              loadingOverlay.classList.remove("visible");
+            });
         });
       });
     </script>
     <script>
-     // Your JavaScript code here
-        function toggleAudio() {
-            const audioPlayer = document.getElementById("audioPlayer");
-            const backgroundAudio = document.getElementById("backgroundAudio");
+      // Your JavaScript code here
+      function toggleAudio() {
+        const audioPlayer = document.getElementById("audioPlayer");
+        const backgroundAudio = document.getElementById("backgroundAudio");
 
-            if (
-                audioPlayer.style.display === "none" ||
-                audioPlayer.style.display === ""
-            ) {
-                audioPlayer.style.display = "block";
-                backgroundAudio.play();
-            } else {
-                audioPlayer.style.display = "none";
-                backgroundAudio.pause();
-            }
+        if (
+          audioPlayer.style.display === "none" ||
+          audioPlayer.style.display === ""
+        ) {
+          audioPlayer.style.display = "block";
+          backgroundAudio.play();
+        } else {
+          audioPlayer.style.display = "none";
+          backgroundAudio.pause();
         }
+      }
 
-        function handleScrollAudioPlayback() {
-            const audioPlayer = document.getElementById("audioPlayer");
-            const backgroundAudio = document.getElementById("backgroundAudio");
+      function handleScrollAudioPlayback() {
+        const audioPlayer = document.getElementById("audioPlayer");
+        const backgroundAudio = document.getElementById("backgroundAudio");
 
-            if (backgroundAudio.paused && (audioPlayer.style.display === "none" || audioPlayer.style.display === "")) {
-                audioPlayer.style.display = "block";
-                backgroundAudio.play();
-                // Remove the event listener after the first play
-                window.removeEventListener("scroll", handleScrollAudioPlayback);
-            }
+        if (
+          backgroundAudio.paused &&
+          (audioPlayer.style.display === "none" ||
+            audioPlayer.style.display === "")
+        ) {
+          audioPlayer.style.display = "block";
+          backgroundAudio.play();
+          // Remove the event listener after the first play
+          window.removeEventListener("scroll", handleScrollAudioPlayback);
         }
+      }
 
-        window.addEventListener("scroll", handleScrollAudioPlayback);
+      window.addEventListener("scroll", handleScrollAudioPlayback);
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -905,7 +964,7 @@
           );
         }
 
-          // Mengisi teks untuk paragraf (misalnya di <span id="paragraphGreeting">)
+        // Mengisi teks untuk paragraf (misalnya di <span id="paragraphGreeting">)
         const paragraphGreetingsElement =
           document.getElementById("paragraphGreetings");
         if (paragraphGreetingsElement) {
@@ -916,8 +975,6 @@
             displayText
           );
         }
-
-        
       });
     </script>
   </body>
